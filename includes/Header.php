@@ -115,6 +115,7 @@ class Header {
 			enqueue_js('jquery');
 			enqueue_js('materialize');
 			enqueue_css('materialize');
+			enqueue_css('materialize.custom');
 			enqueue_css('material-icons');
 		}
 

@@ -27,6 +27,9 @@ isset($_GET['logout'])
 isset( $_POST['user_uid'], $_POST['user_password'] )
 	&& login($status);
 
+is_logged()
+	&& http_redirect( get_menu_entry('app')->url );
+
 switch($status) {
 	case Session::LOGIN_FAILED:
 		message_box( _("Errore indirizzo e-mail/password") );
@@ -49,43 +52,43 @@ if( is_logged() ):
 <?php else: ?>
 	<div class="row">
 		<form method="post">
-      			<div class="row">
+			<div class="row">
         			<div class="col s12 m6 l5">
-          				<div class="card">
+					<div class="card">
 						<div class="card-content">
 							<div class="row">
 								<div class="col s12">
 									<div class="input-field">
-		                                        	        	<label for="user_uid"><?php _e("E-mail") ?></label>
+										<label for="user_uid"><?php _e("E-mail") ?></label>
 										<input name="user_uid" id="user_uid" type="text" class="validate"<?php
-       	                 	        	                        		echo HTML::property('value', @$_REQUEST['user_uid'] )
-       	 			        	                               	?> />
+											echo HTML::property('value', @$_REQUEST['user_uid'] )
+										?> />
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col s12">
 									<div class="input-field">
-				                                                <label for="user_password"><?php _esc_attr( _("Password") ) ?></label>
-       	                 			                        	<input name="user_password" id="user_password" type="password" class="validate" />
+										<label for="user_password"><?php _esc_attr( _("Password") ) ?></label>
+										<input name="user_password" id="user_password" type="password" class="validate" />
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col s12 center">
 									<p>
-								        <button class="<?php echo BTN ?>" type="submit">
-                                              					 <?php _e("Accedi") ?>
-										 <?php echo icon('send', 'right') ?>
+									<button class="<?php echo BTN ?>" type="submit">
+										<?php _e("Accedi") ?>
+										<?php echo icon('send', 'right') ?>
 									</button>
 									</p>
 								</div>
 							</div>
 						</div>
 						<!-- End card content -->
-			           	 </div>
+					</div>
 					<!-- End card -->
-			        </div>
+				</div>
 				<!-- End col -->
 				<div class="col s12 m5 offset-m1 l6 offset-l1">
 					<div class="row">
@@ -94,13 +97,13 @@ if( is_logged() ):
 								<?php _e("Indoor Mapping"); ?>
 							</h4>
 							<p class="flow-text">
-								<?php _e("Pensando a cosa mancava, nella consapevolezza delle persone, abbiamo immaginato un nuovo  approccio per comunicare vari rischi, per me, per te e per voi."); ?>
+								<?php _e("Pensando a cosa mancava, nella consapevolezza delle persone, abbiamo immaginato un nuovo approccio per comunicare vari rischi, per me, per te e per voi."); ?>
 							</p>
 						</div>
 					</div>
 				</div>
-				<!-- End col  -->
-        		</div>
+				<!-- End col -->
+			</div>
 			<!-- End row -->
 		</form>
 	</div>

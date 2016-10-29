@@ -17,48 +17,43 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 ###############################################################################
 
-class Footer {
-	function __construct() { ?>
+require 'load.php';
 
-	<?php load_module('footer') ?>
+is_logged()
+	|| http_redirect( get_menu_entry('login')->url );
 
-	<footer class="page-footer <?php echo GROUND ?>">
-		<div class="container">
-			<div class="row">
-				<h5 class="white-text"><?php _e("Licenza"); ?></h5>
-				<p class="white-text"><?php printf(
-					_("Software libero pubblicato sotto licenza %s."),
-					HTML::a(
-						_("https://www.gnu.org/licenses/agpl-3.0.html"),
-						"GNU AGPL",
-						"GNU Affero General Public License",
-						'yellow-text',
-						'target="_blank"'
-					)
-				) ?></p>
-				<p class="white-text"><?php printf(
-					_("Contenuti del sito rilasciati come opera culturale libera sotto licenza %s."),
-					HTML::a(
-						_('https://creativecommons.org/licenses/by-sa/4.0/deed.it'),
-						"CC By-Sa 4.0",
-						_("Creative Commons Attribuzione - Condividi allo stesso modo 4.0"),
-						'yellow-text',
-						'target="_blank"'
-					)
-				) ?></p>
+enqueue_css('leaflet');
+enqueue_js('verticalize');
+enqueue_js('leaflet');
+
+new Header('app', [
+	'container'  => false,
+	'show-title' => false
+] );
+?>
+
+<script>
+$(document).ready(function () {
+	Verticalize.init("<?php _esc_attr( get_user()->getUserNominatim() ) ?>");
+});
+</script>
+
+<div class="row">
+	<div class="col s12 m4">
+		<div class="row">
+			<div class="col s6">
+				<p><?php _e("Elevazione:") ?></p>
+				<div class="card-panel level-selector">
+					<a class="btn-floating waves-effect waves-light <?php echo BACK ?>"><?php echo icon('add') ?></a>
+					<a class="btn-floating waves-effect waves-light <?php echo BACK ?>"><?php echo icon('remove') ?></a>
+				</div>
 			</div>
 		</div>
-		<div class="footer-copyright">
-			<div class="container">
-				<a class="hoverable white-text right" href="https://github.com/maledetti-pinguini-asdosi/hackreativity-2016">git clone</a>
-			</div>
-		</div>
-	</footer>
-</body>
-</html><?php
+	</div>
+	<div cla ss="col s12 m8">
+		<div id="map"></div>
+	</div>
+</div>
 
-		#################
-		# END CONSTRUCT #
-		#################
-	}
-}
+<?php
+new Footer();

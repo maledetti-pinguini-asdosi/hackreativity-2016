@@ -17,14 +17,28 @@
 And:
 - [X] Cloaked the $awesome_project` under a stupid work-in-progress/easter-egg page 
 - [X] Knowing if `$awesome_project` leave us the time to have the first breakfast
-- [ ] Knowing if `$awesome_project` leave us the time to have lunch
-- [ ] Knowing if `$awesome_project` leave us the time to have dinner
+- [X] Knowing if `$awesome_project` leave us the time to have lunch
+- [X] Knowing if `$awesome_project` leave us the time to have dinner
 - [ ] Knowing if `$awesome_project` leave us the time to sleep
 - [ ] Knowing if `$awesome_project` leave us the time to have breakfast
 - [ ] Knowing if `$awesome_project` leave us the time to show it
 
 ## Pratically
 - [X] Login working
+
+## Website installation
+    # apt-get install bzr
+    bzr branch lp:boz-php-another-php-framework /usr/share/boz-php-another-php-framework
+
+    apt-get install apache2 mariadb-server libapache2-mod-php5 php5-mysql php-gettext libjs-jquery libjs-leaflet
+
+    a2enmod proxy_http
+
+Import the `database-schema.sql` in your database
+
+Fill `load-example.php` and save-as `load.php`.
+
+Add this in your Apache virtualhost:
 
 ## License
 Copyright (C) 2016 MPA: Maledetti pinguini asdosi: Alessio Beccati, Valerio Bozzolan and contributors.

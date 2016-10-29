@@ -39,6 +39,8 @@ defined('CONTENT')
 defined('STITIC')
 	|| define('STITIC',   ROOT . _ . DIR_STATIC);
 
+define('IMAGES', STITIC . '/images');
+
 ########################################################
 # PROBABLY PROVIDED BY 'libjs-jquery', 'libjs-leaflet' #
 ########################################################
@@ -65,6 +67,8 @@ spl_autoload_register( function($missing_class_name) {
 } );
 
 require ABSPATH . _ . DIR_INCLUDES . '/functions.php';
+
+define('SESSIONUSER_CLASS', 'User');
 
 ######################################
 # INTERNATIONALIZATION (GNU GETTEXT) #
@@ -114,12 +118,14 @@ defined('BTN')
 # JAVSCRIPT AND CSS RESOURCES #
 ###############################
 
-register_js( 'jquery',         PATH_JQUERY);
-register_js( 'leaflet',        PATH_LEAFLET_JS);
-register_css('leaflet',        PATH_LEAFLET_CSS);
-register_js( 'materialize',    STITIC . '/materialize/js/materialize.min.js');
-register_css('materialize',    STITIC . '/materialize/css/materialize.min.css');
-register_css('material-icons', STITIC . '/material-design-icons/material-icons.css');
+register_js( 'jquery',             PATH_JQUERY);
+register_js( 'leaflet',            PATH_LEAFLET_JS);
+register_css('leaflet',            PATH_LEAFLET_CSS);
+register_js( 'materialize',        STITIC . '/materialize/js/materialize.min.js');
+register_js( 'verticalize',        STITIC . '/verticalize.js');
+register_css('materialize',        STITIC . '/materialize/css/materialize.min.css');
+register_css('materialize.custom', STITIC . '/materialize-custom.css');
+register_css('material-icons',     STITIC . '/material-design-icons/material-icons.css');
 
 #############
 # MENU TREE #
@@ -128,6 +134,7 @@ register_css('material-icons', STITIC . '/material-design-icons/material-icons.c
 $not_logged = is_logged() ? 'hidden' : 'root';
 
 add_menu_entries( [
-	new MenuEntry('home',     URL,                   _("Indoormap platform")                    ),
-	new MenuEntry('login',    URL . '/login.php',    _("Community login"),           $not_logged)
+	new MenuEntry('home',     URL,                          _("Indoormap platform")                    ),
+	new MenuEntry('login',    URL . '/login.php',           _("Community login"),           $not_logged),
+	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now")                       )
 ] );

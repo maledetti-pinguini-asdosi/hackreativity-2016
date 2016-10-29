@@ -54,7 +54,7 @@ class User extends Sessionuser {
 		}
 	}
 
-	function insert($uid, $password, $name, $surname, $active = true) {
+	function insert($uid, $password, $name, $surname, $active = true, $token = null) {
 		$uid     = luser_input($uid,     32);
 		$name    = luser_input($name,    32);
 		$surname = luser_input($surname, 32);
@@ -64,11 +64,23 @@ class User extends Sessionuser {
 		$password = self::encryptSessionuserPassword( $password );
 
 		insert_row('user', [
-			new DBCol('user_uid',        $uid,      's'),
-			new DBCol('user_active',     $active,   'd'),
-			new DBCol('user_password',   $password, 's'),
-			new DBCol('user_name',       $name,     's'),
-			new DBCol('user_surname',    $surname,  's')
+			new DBCol('user_uid',               $uid,      's'),
+			new DBCol('user_active',            $active,   'd'),
+			new DBCol('user_password',          $password, 's'),
+			new DBCol('user_name',              $name,     's'),
+			new DBCol('user_surname',           $surname,  's'),
+			new DBCol('user_registration_date', 'NOW()',   '-'),
+			new DBCol('user_token',             $token,    'snull')
 		] );
+	}
+
+	function getByID($id) {
+		return query_row(
+			sprintf(
+				"SELECT * FROM user WHERE user_ID = %d",
+				$id
+			),
+			'User'
+		);
 	}
 }
