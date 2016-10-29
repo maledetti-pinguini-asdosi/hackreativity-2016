@@ -1,7 +1,7 @@
 # MPA — Maledetti Pinguini Asdosi's repository @ Hackreativity
 
 ## Todo
-- [ ] Brainstorming on our `$awesome_project`
+- [X] Brainstorming on our `$awesome_project`
 - [ ] Naming our `$awesome_project`
 - [ ] Knowing if `$awesome_project` is not out of topic
 - [ ] Knowing if `$awesome_project` is innovative
