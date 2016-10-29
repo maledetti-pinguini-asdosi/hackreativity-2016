@@ -4,19 +4,24 @@
 - [X] Brainstorming on our `$awesome_project`
 - [X] Naming our `$awesome_project`
 - [X] Choosing `$awesome_project`'s license
-- [ ] Knowing if `$awesome_project` is not out of topic
-- [ ] Knowing if `$awesome_project` is innovative
-- [ ] Knowing if `$awesome_project` has potential
-- [ ] Knowing if `$awesome_project` is #sexy
-- [ ] Knowing if `$awesome_project` uses bigdata
+- [X] Choosing `$awesome_project`' website's technologies
+- [X] Knowing if `$awesome_project` is not out of topic
+- [X] Knowing if `$awesome_project` is innovative
+- [X] Knowing if `$awesome_project` has potential
+- [X] Knowing if `$awesome_project` is #sexy
+- [X] Knowing if `$awesome_project` uses bigdata
 - [ ] Knowing if `$awesome_project` can be developed in 24(/26) hours without sleep
 - [ ] Knowing if `$awesome_project`'s presentation is #sexy
 - [ ] Knowing if `$awesome_project`'s documentation is full
 
 And:
+- [X] Cloaked the $awesome_project` under a stupid work-in-progress/easter-egg page 
+- [X] Knowing if `$awesome_project` leave us the time to have the first breakfast
 - [ ] Knowing if `$awesome_project` leave us the time to have lunch
 - [ ] Knowing if `$awesome_project` leave us the time to have dinner
-- [ ] Knowing if `$awesome_project` leave us the time to have breakfast 
+- [ ] Knowing if `$awesome_project` leave us the time to sleep
+- [ ] Knowing if `$awesome_project` leave us the time to have breakfast
+- [ ] Knowing if `$awesome_project` leave us the time to show it
 
 ## License
 Copyright (C) 2016 MPA: Maledetti pinguini asdosi: Alessio Beccati, Valerio Bozzolan and contributors.
