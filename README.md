@@ -37,7 +37,7 @@ And:
 
     a2enmod proxy_http
 
-Import the `database-schema.sql` in your database
+Import the `database/database-schema.sql` in your database
 
 Fill `load-example.php` and save-as `load.php`.
 
