@@ -102,10 +102,13 @@ defined('FAVICON')
 ############################
 
 defined('TEXT')
-	|| define('TEXT', 'purple-text text-darken-4');
+	|| define('TEXT', 'black-text');
 
 defined('GROUND')
-	|| define('GROUND', 'purple darken-4');
+	|| define('GROUND', 'teal');
+
+defined('BTN')
+	|| define('BTN',  'btn waves-effect waves-light ' . GROUND);
 
 ###############################
 # JAVSCRIPT AND CSS RESOURCES #
@@ -114,13 +117,17 @@ defined('GROUND')
 register_js( 'jquery',         PATH_JQUERY);
 register_js( 'leaflet',        PATH_LEAFLET_JS);
 register_css('leaflet',        PATH_LEAFLET_CSS);
-register_js( 'materialize',    STITIC . '/materialize/js/materialize.min.css');
+register_js( 'materialize',    STITIC . '/materialize/js/materialize.min.js');
 register_css('materialize',    STITIC . '/materialize/css/materialize.min.css');
 register_css('material-icons', STITIC . '/material-design-icons/material-icons.css');
 
 #############
 # MENU TREE #
 #############
+
+$not_logged = is_logged() ? 'hidden' : 'root';
+
 add_menu_entries( [
-	new MenuEntry('home',    URL,     _("Benvenuti") )
+	new MenuEntry('home',    URL,                _("Benvenuti"), 'root'),
+	new MenuEntry('login',   URL . '/login.php', _("Login"),     $not_logged)
 ] );

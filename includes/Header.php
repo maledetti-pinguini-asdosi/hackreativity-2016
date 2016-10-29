@@ -112,11 +112,10 @@ class Header {
 		################################
 
 		if( $args['default-theme'] ) {
-			enqueue_css('materialize');
-			enqueue_css('materialize.custom');
-			enqueue_css('materialize.icons');
 			enqueue_js('jquery');
 			enqueue_js('materialize');
+			enqueue_css('materialize');
+			enqueue_css('material-icons');
 		}
 
 		#############################
@@ -182,29 +181,7 @@ class Header {
 </head>
 <body>
 
-	<nav>
-		<div class="nav-wrapper purple darken-4">
-			<a class="brand-logo" href="<?php echo URL . _ ?>" title="<?php _esc_attr( SITE_NAME ) ?>">
-				<img src="<?php echo FAVICON ?>" alt="<?php _esc_attr( SITE_DESCRIPTION ) ?>" />
-			</a>
-			<a href="#" data-activates="slide-out" class="button-collapse"><?php echo icon('menu') ?></a>
-			<?php print_menu(
-				'root',
-				0, [
-					'main-ul-intag' => 'class="right hide-on-med-and-down"'
-				]
-			) ?>
-
-		</div>
-		<?php print_menu(
-			'root',
-			0, [
-				'main-ul-intag' => 'id="slide-out" class="side-nav"',
-				'collapse' => true
-			]
-		) ?>
-
-	</nav>
+	<?php new Nav() ?>
 
 	<?php if( $args['landing'] ): ?>
 	<div class="parallax-container">

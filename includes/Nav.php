@@ -17,30 +17,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 ###############################################################################
 
-class Footer {
-	function __construct() { ?>
+class Nav {
+	function __construct() {
+?>
 
-	<?php load_module('footer') ?>
+	<nav>
+		<div class="nav-wrapper <?php echo GROUND ?>">
+			<a class="brand-logo" href="<?php echo URL ?>" title="<?php _esc_attr( SITE_NAME ) ?>">
+				<img src="<?php echo FAVICON ?>" alt="<?php _esc_attr( SITE_DESCRIPTION ) ?>" />
+			</a>
+			<a href="#" data-activates="slide-out" class="button-collapse"><?php echo icon('menu') ?></a>
+			<?php print_menu(
+				'root',
+				0, [
+					'main-ul-intag' => 'class="right hide-on-med-and-down"'
+				]
+			) ?>
 
-	<footer class="page-footer <?php echo GROUND ?>">
-			<div class="container">
-            			<div class="row">
-              			<!-- Mettiamo roba qui  -->
-				</div>
-          		</div>
 		</div>
-		<div class="footer-copyright">
-			<div class="container">
-            			© 2014 Copyright Text
-				<a class="grey-text text-lighten-4 right" href="#!">Developed by MPA</a>
-			</div>
-		 </div>
-	</footer>
-</body>
-</html><?php
+		<?php print_menu(
+			'root',
+			0, [
+				'main-ul-intag' => 'id="slide-out" class="side-nav"',
+				'collapse' => true
+			]
+		) ?>
 
-		#################
-		# END CONSTRUCT #
-		#################
+	</nav>
+<?php
 	}
 }
