@@ -19,12 +19,35 @@
 
 require 'load.php';
 
-new Header('home');
+new Header('home', [
+	'landing' => IMAGES . '/north_italy.png'
+] );
 
-?>
-	<p class="flow-text"><?php _e(
+	?>
 
-	) ?></p>
+	<div class="row">
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content">
+					<h4><?php _e("Platform per?");  ?></h4>
+					<p>
+						<span class="card-title"><?php _e("Indoormap è usato per identificare, mappare e condividere oggetti rilevanti dentro un edificio.") ?></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content">
+					<h4>Sicurezza?</h4>
+					<p>
+						<span class="card-title"><?php _e("Indoormap ti fornisce sicurezza. Se sei un utente registrato puoi segnalare edifici daneggiati da eventi sismici, pericolanti. ") ?></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <?php
 
 new Footer();

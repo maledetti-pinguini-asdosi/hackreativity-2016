@@ -38,6 +38,8 @@ $(document).ready(function () {
 		$(document).height() - $("nav").height()
 	);
 
+	<?php new VerticalizeL10n() ?>
+
 	Verticalize.init("<?php _esc_attr( get_user()->getUserNominatim() ) ?>");
 
 	$(".level-selector .up")     .click(Verticalize.addLevel);
@@ -54,19 +56,29 @@ $(document).ready(function () {
 	<div class="col s12 m4">
 		<div class="row">
 			<div class="col s6">
-				<p><?php _e("Elevazione:") ?></p>
-				<div class="card-panel level-selector">
-					<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
-					<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
+				<h5 class="center"><?php _e("Elevazione") ?></h5>
+				<div class="level-selector">
+					<div class="row">
+						<div class="col s5 offset-s1">
+							<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
+						</div>
+						<div class="col s5 offset-s1">
+							<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
 			<div class="col s6">
-				<p><?php _e("Elevazione:") ?></p>
-				<div class="card-panel minlevel-selector">
-					<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
-					<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
+				<h5 class="center"><?php _e("Delevazione") ?></h5>
+				<div class="minlevel-selector">
+					<div class="row">
+						<div class="col s5 offset-s1">
+							<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
+						</div>
+						<div class="col s5 offset">
+							<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
