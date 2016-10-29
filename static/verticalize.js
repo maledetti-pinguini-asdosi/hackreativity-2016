@@ -27,6 +27,10 @@ var Verticalize = {
 		zoom: 19
 	},
 
+	l10n: {
+		connectionError: null
+	},
+
 	map: null,
 
 	geojson: {},
@@ -97,17 +101,21 @@ var Verticalize = {
 					return feature.geometry.properties;
 				},
 				onEachFeature: function (feature, layer) {
-					// layer.bindPopup(feature.properties.description);
+					var floor = feature.properties.floor;
+					if(floor === 0) {
+						floor = Verticalize.l10n.ground;
+					}
+					layer.bindPopup( Verticalize.l10n.floorPopup.formatUnicorn( { floor: floor } ) );
 				}
 			} )
 		);
 	},
 
 	plotNominatim: function(nominatim, callback) {
-		var data = {q: nominatim, format: "json", polygon_geojson: 1, limit: 1};
+		var data = {q: nominatim, format: 'json', polygon_geojson: 1, limit: 1};
 		$.getJSON(Verticalize.config.nominatim, data, function(json) {
-			if( ! json || json.length !== 1) {
-				Materialize.error("Connection error");
+			if( ! json || json.length !== 1 ) {
+				Materialize.error( Verticalize.l10n.connectionError );
 				return;
 			}
 
@@ -124,8 +132,8 @@ var Verticalize = {
 		Verticalize.geoJson3D();
 	},
 
-	cloneGeojsonSpased: function(level) {
-		// JavaScript MERDA
+	cloneGeojsonSpased: function(level, properties) {
+		// JavaScript #merda
 		geojson = JSON.parse(JSON.stringify(Verticalize.geojson));
 
 		var coordinates = [];
@@ -141,20 +149,46 @@ var Verticalize = {
 
 		return {
 			type: geojson.type,
-			coordinates: coordinates
+			coordinates: coordinates,
+			properties: properties
 		};
 	},
 
 	geoJson3D: function() {
 		for(var i=Verticalize.minusLevels; i>0; i--) {
-			var cloned = Verticalize.cloneGeojsonSpased(-i);
-			cloned.properties = {fillColor: 'grey'};
+			var cloned = Verticalize.cloneGeojsonSpased(-i, {
+				floor: -i,
+				fillColor: 'white',
+				fillOpacity: 0.2,
+				weight: 3
+			});
 			Verticalize.plotGeoJson( cloned );
 		}
 		for(var i=0; i<Verticalize.levels; i++) {
-			var cloned = Verticalize.cloneGeojsonSpased(i);
-			cloned.properties = {fillColor: 'green'};
+			var cloned = Verticalize.cloneGeojsonSpased(i, {
+				floor: i,
+				fillColor: '#009688',
+				fillOpacity: 1
+			});
 			Verticalize.plotGeoJson( cloned );
 		}
 	}
+};
+
+/*
+ * This is so... asd
+ *
+ * http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+ */
+String.prototype.formatUnicorn = function() {
+	var str = this.toString();
+	if( ! arguments.length ) {
+		return str;
+	}
+	var args = typeof arguments[0],
+	args = ( ('string' == args || 'number' == args) ? arguments : arguments[0] );
+        for(var arg in args) {
+		str = str.replace(RegExp('\\{' + arg + '\\}', 'gi'), args[arg]);
+	}
+	return str;
 };
