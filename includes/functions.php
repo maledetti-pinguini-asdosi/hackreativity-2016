@@ -74,3 +74,14 @@ function die_with_404() {
 	new Footer();
 	exit;
 }
+
+function message_box($message) {
+	// asd!
+	$GLOBALS['message_box'] = $message;
+
+	inject_in_module('footer', function() { ?>
+		<script>
+		Materialize.toast("<?php _esc_attr( $GLOBALS['message_box'] ) ?>", 4000);
+		</script>
+	<?php } );
+}

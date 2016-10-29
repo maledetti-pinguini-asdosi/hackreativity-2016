@@ -23,18 +23,35 @@ class Footer {
 	<?php load_module('footer') ?>
 
 	<footer class="page-footer <?php echo GROUND ?>">
-			<div class="container">
-            			<div class="row">
-              			<!-- Mettiamo roba qui  -->
-				</div>
-          		</div>
+		<div class="container">
+			<div class="row">
+				<p class="white-text"><?php printf(
+					_("Software libero pubblicato sotto licenza %s."),
+					HTML::a(
+						_("https://www.gnu.org/licenses/agpl-3.0.html"),
+						"GNU AGPL",
+						"GNU Affero General Public License",
+						'yellow-text',
+						'target="_blank"'
+					)
+				) ?></p>
+				<p class="white-text"><?php printf(
+					_("Contenuti del sito rilasciati come opera culturale libera sotto licenza %s."),
+					HTML::a(
+						_('https://creativecommons.org/licenses/by-sa/4.0/deed.it'),
+						"CC By-Sa 4.0",
+						_("Creative Commons Attribuzione - Condividi allo stesso modo 4.0"),
+						'yellow-text',
+						'target="_blank"'
+					)
+				) ?></p>
+			</div>
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
-            			© 2014 Copyright Text
-				<a class="grey-text text-lighten-4 right" href="#!">Developed by MPA</a>
+				<a class="hoverable white-text right" href="https://github.com/maledetti-pinguini-asdosi/hackreativity-2016">git clone</a>
 			</div>
-		 </div>
+		</div>
 	</footer>
 </body>
 </html><?php

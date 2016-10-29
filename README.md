@@ -23,6 +23,9 @@ And:
 - [ ] Knowing if `$awesome_project` leave us the time to have breakfast
 - [ ] Knowing if `$awesome_project` leave us the time to show it
 
+## Pratically
+- [X] Login working
+
 ## License
 Copyright (C) 2016 MPA: Maledetti pinguini asdosi: Alessio Beccati, Valerio Bozzolan and contributors.
 

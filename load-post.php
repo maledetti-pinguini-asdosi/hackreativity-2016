@@ -128,6 +128,6 @@ register_css('material-icons', STITIC . '/material-design-icons/material-icons.c
 $not_logged = is_logged() ? 'hidden' : 'root';
 
 add_menu_entries( [
-	new MenuEntry('home',    URL,                _("Benvenuti"), 'root'),
-	new MenuEntry('login',   URL . '/login.php', _("Login"),     $not_logged)
+	new MenuEntry('home',     URL,                   _("Indoormap platform")                    ),
+	new MenuEntry('login',    URL . '/login.php',    _("Community login"),           $not_logged)
 ] );

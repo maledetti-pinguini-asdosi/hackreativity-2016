@@ -17,14 +17,58 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 ###############################################################################
 
-require 'load.php';
+trait UserTrait {
+	function getUserFullname() {
+		return sprintf(
+			_('%1$s %2$s'),
+			$this->user_name,
+			$this->user_surname
+		);
+	}
 
-new Header('home');
+	function getUserID() {
+		isset($this->user_ID)
+			|| error_die("Missing user_ID");
 
-?>
-	<p class="flow-text"><?php _e(
+		return $this->user_ID;
+	}
 
-	) ?></p>
-<?php
+	function getUserUID() {
+		isset($this->user_uid)
+			|| error_die("Missing user_uid");
 
-new Footer();
+		return $this->user_uid;
+	}
+}
+
+class User extends Sessionuser {
+	use UserTrait;
+
+	function __construct() {
+		self::normalize();
+	}
+
+	function normalize(& $t) {
+		if( isset( $t->user_ID ) ) {
+			$t->user_ID = (int) $t->user_ID;
+		}
+	}
+
+	function insert($uid, $password, $name, $surname, $active = true) {
+		$uid     = luser_input($uid,     32);
+		$name    = luser_input($name,    32);
+		$surname = luser_input($surname, 32);
+		$active  = $active ? 1 : 0;
+
+		// Boz-PHP Sessionuser
+		$password = self::encryptSessionuserPassword( $password );
+
+		insert_row('user', [
+			new DBCol('user_uid',        $uid,      's'),
+			new DBCol('user_active',     $active,   'd'),
+			new DBCol('user_password',   $password, 's'),
+			new DBCol('user_name',       $name,     's'),
+			new DBCol('user_surname',    $surname,  's')
+		] );
+	}
+}

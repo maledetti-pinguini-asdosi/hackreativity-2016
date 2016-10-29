@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 ###############################################################################
 # Copyright (C) 2016 MPA: Maledetti pinguini asdosi                           #
@@ -19,12 +20,13 @@
 
 require 'load.php';
 
-new Header('home');
+if( ! isset( $argv ) || count( $argv ) !== 5 ) {
+	printf(
+		"Usage: %s <uid> <password> <name> <surname>",
+		$argv[0]
+	);
+	echo "\n";
+	exit(1);
+}
 
-?>
-	<p class="flow-text"><?php _e(
-
-	) ?></p>
-<?php
-
-new Footer();
+User::insert($argv[1], $argv[2], $argv[3], $argv[4]);

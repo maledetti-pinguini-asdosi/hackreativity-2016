@@ -29,14 +29,14 @@ isset( $_POST['user_uid'], $_POST['user_password'] )
 
 switch($status) {
 	case Session::LOGIN_FAILED:
-		error_die("Wrong e-mail or password");
+		message_box( _("Errore indirizzo e-mail/password") );
 		break;
 	case Session::USER_DISABLED:
-		error_die("User disabled");
+		message_box( _("Utente disabilitato") );
 		break;
 }
 
-new Header('home');
+new Header('login');
 
 if( is_logged() ):
 ?>
@@ -47,29 +47,61 @@ if( is_logged() ):
 	) ?></p>
 
 <?php else: ?>
-	<div class="card-panel">
+	<div class="row">
 		<form method="post">
-			<div class="row">
-				<div class="input-field col s12 m6">
-					<input name="user_uid" id="user_uid" type="text" class="validate"<?php
-						echo HTML::property('value', @$_REQUEST['user_uid'] )
-					?> />
-					<label for="user_uid"><?php _e("E-mail") ?></label>
+      			<div class="row">
+        			<div class="col s12 m6 l5">
+          				<div class="card">
+						<div class="card-content">
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field">
+		                                        	        	<label for="user_uid"><?php _e("E-mail") ?></label>
+										<input name="user_uid" id="user_uid" type="text" class="validate"<?php
+       	                 	        	                        		echo HTML::property('value', @$_REQUEST['user_uid'] )
+       	 			        	                               	?> />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field">
+				                                                <label for="user_password"><?php _esc_attr( _("Password") ) ?></label>
+       	                 			                        	<input name="user_password" id="user_password" type="password" class="validate" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12 center">
+									<p>
+								        <button class="<?php echo BTN ?>" type="submit">
+                                              					 <?php _e("Accedi") ?>
+										 <?php echo icon('send', 'right') ?>
+									</button>
+									</p>
+								</div>
+							</div>
+						</div>
+						<!-- End card content -->
+			           	 </div>
+					<!-- End card -->
+			        </div>
+				<!-- End col -->
+				<div class="col s12 m5 offset-m1 l6 offset-l1">
+					<div class="row">
+						<div class="col s12">
+							<h4>
+								<?php _e("Indoor Mapping"); ?>
+							</h4>
+							<p class="flow-text">
+								<?php _e("Pensando a cosa mancava, nella consapevolezza delle persone, abbiamo immaginato un nuovo  approccio per comunicare vari rischi, per me, per te e per voi."); ?>
+							</p>
+						</div>
+					</div>
 				</div>
-				<div class="input-field col s12 m6">
-					<input name="user_password" id="user_password" type="password" class="validate" />
-					<label for="user_password"><?php _esc_attr( _("Password") ) ?></label>
-				</div>
-                                <div class="row">
-                                        <p>
-                                                <button class="<?php echo BTN ?>" type="submit">
-                                                        <?php _e("Accedi") ?>
-                                                                <?php echo icon('send', 'right') ?>
-                                                </button>
-                                        </p>
-                                </div>
-
-			</div>
+				<!-- End col  -->
+        		</div>
+			<!-- End row -->
 		</form>
 	</div>
 <?php
