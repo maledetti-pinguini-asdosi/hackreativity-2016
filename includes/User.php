@@ -39,13 +39,17 @@ trait UserTrait {
 
 		return $this->user_uid;
 	}
+
+	function getUserNominatim() {
+		return $this->user_nominatim;
+	}
 }
 
 class User extends Sessionuser {
 	use UserTrait;
 
 	function __construct() {
-		self::normalize();
+		self::normalize($this);
 	}
 
 	function normalize(& $t) {

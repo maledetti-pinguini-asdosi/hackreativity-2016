@@ -26,6 +26,9 @@ And:
 ## Pratically
 - [X] Login working
 
+## TODO
+- [ ] Optimize 3D palace draw
+
 ## Website installation
     # apt-get install bzr
     bzr branch lp:boz-php-another-php-framework /usr/share/boz-php-another-php-framework

@@ -19,7 +19,7 @@
 	height: 200px;
 }
 
-#map {
-	margin-top: 2%;
-	min-height:400px;
+.no-padding-left {
+	padding-left: 0px !important;
+	padding-right: 1.5rem !important;
 }

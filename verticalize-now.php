@@ -34,24 +34,42 @@ new Header('app', [
 
 <script>
 $(document).ready(function () {
+	$("#map").height(
+		$(document).height() - $("nav").height()
+	);
+
 	Verticalize.init("<?php _esc_attr( get_user()->getUserNominatim() ) ?>");
+
+	$(".level-selector .up")     .click(Verticalize.addLevel);
+	$(".level-selector .down")   .click(Verticalize.removeLevel);
+	$(".minlevel-selector .up")  .click(Verticalize.addMinusLevel);
+	$(".minlevel-selector .down").click(Verticalize.removeMinusLevel);
 });
 </script>
 
 <div class="row">
+	<div class="col s12 m8 no-padding-left">
+		<div id="map"></div>
+	</div>
 	<div class="col s12 m4">
 		<div class="row">
 			<div class="col s6">
 				<p><?php _e("Elevazione:") ?></p>
 				<div class="card-panel level-selector">
-					<a class="btn-floating waves-effect waves-light <?php echo BACK ?>"><?php echo icon('add') ?></a>
-					<a class="btn-floating waves-effect waves-light <?php echo BACK ?>"><?php echo icon('remove') ?></a>
+					<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
+					<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div cla ss="col s12 m8">
-		<div id="map"></div>
+		<div class="row">
+			<div class="col s6">
+				<p><?php _e("Elevazione:") ?></p>
+				<div class="card-panel minlevel-selector">
+					<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
+					<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -38,27 +38,30 @@ var Verticalize = {
 
 	addLevel: function() {
 		Verticalize.levels++;
+		Verticalize.plot();
 	},
 
 	addMinusLevel: function () {
 		Verticalize.minusLevels++;
+		Verticalize.plot();
 	},
 
 	removeLevel: function () {
 		if( Verticalize.levels > 0 ) {
 			Verticalize.levels--;
+			Verticalize.plot();
 		}
 	},
 
 	removeMinusLevel: function () {
 		if( Verticalize.minusLevels > 0 ) {
 			Verticalize.minusLevels--;
+			Verticalize.plot();
 		}
 	},
 
 	clearGeojsonLayers: function () {
 		if( Verticalize.layers !== false ) {
-			// is L.LayerGroup()
 			Verticalize.layers.clearLayers();
 		}
 	},
@@ -91,8 +94,7 @@ var Verticalize = {
 		Verticalize.addGeojsonLayer(
 			L.geoJson(geojson, {
 				style: function (feature) {
-					// featuregroup
-					return {};
+					return feature.geometry.properties;
 				},
 				onEachFeature: function (feature, layer) {
 					// layer.bindPopup(feature.properties.description);
@@ -102,8 +104,6 @@ var Verticalize = {
 	},
 
 	plotNominatim: function(nominatim, callback) {
-		Verticalize.clearGeojsonLayers();
-
 		var data = {q: nominatim, format: "json", polygon_geojson: 1, limit: 1};
 		$.getJSON(Verticalize.config.nominatim, data, function(json) {
 			if( ! json || json.length !== 1) {
@@ -114,9 +114,14 @@ var Verticalize = {
 			for(var i=0; i<json.length; i++) {
 				Verticalize.geojson = json[i].geojson;
 				Verticalize.map.setView([json[i].lat, json[i].lon], Verticalize.config.zoom);
-				Verticalize.geoJson3D();
+				Verticalize.plot();
 			}
 		});
+	},
+
+	plot: function() {
+		Verticalize.clearGeojsonLayers();
+		Verticalize.geoJson3D();
 	},
 
 	cloneGeojsonSpased: function(level) {
@@ -129,8 +134,8 @@ var Verticalize = {
 			coordinates[i] = [];
 			for(var j=0; j<geojson.coordinates[i].length; j++) {
 				coordinates[i][j] = [];
-				coordinates[i][j][0] = geojson.coordinates[i][j][0] += - level * 0.00000001;
-				coordinates[i][j][1] = geojson.coordinates[i][j][1] +=   level * 0.00001;
+				coordinates[i][j][0] = geojson.coordinates[i][j][0] += - level * 0.0000005;
+				coordinates[i][j][1] = geojson.coordinates[i][j][1] +=   level * 0.00004;
 			}
 		}
 
@@ -141,8 +146,15 @@ var Verticalize = {
 	},
 
 	geoJson3D: function() {
+		for(var i=Verticalize.minusLevels; i>0; i--) {
+			var cloned = Verticalize.cloneGeojsonSpased(-i);
+			cloned.properties = {fillColor: 'grey'};
+			Verticalize.plotGeoJson( cloned );
+		}
 		for(var i=0; i<Verticalize.levels; i++) {
-			Verticalize.plotGeoJson( Verticalize.cloneGeojsonSpased(i) );
+			var cloned = Verticalize.cloneGeojsonSpased(i);
+			cloned.properties = {fillColor: 'green'};
+			Verticalize.plotGeoJson( cloned );
 		}
 	}
 };
