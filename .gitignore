@@ -1,2 +1,5 @@
 # Ignore Boz-PHP configuration
 /load.php
+
+# GNU Gettext Binary files
+*.mo

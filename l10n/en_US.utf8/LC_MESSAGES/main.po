@@ -1,0 +1,256 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Maledetti Pinguini Asdosi
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: main\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-30 09:15+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: index.php:32
+msgid "Awareness"
+msgstr ""
+
+#: index.php:34
+msgid "La consapevolezza fa la differenza in una situazione di emergenza."
+msgstr ""
+
+#: index.php:42
+msgid "Incognizance"
+msgstr ""
+
+#: index.php:44
+msgid "Ogni giorno, affrontiamo diversi pericoli, consapevoli dei rischi."
+msgstr "Everyday, we affront a lot of dangerous situations, knowing the risks."
+
+#: index.php:57
+msgid "Contribute"
+msgstr ""
+
+#: index.php:59
+msgid ""
+"Avevamo immaginato possibili soluzioni per contribuire a diffondere la "
+"consapevolezza dei rischi."
+msgstr ""
+
+#: index.php:67
+msgid "Another type of map"
+msgstr ""
+
+#: index.php:69
+msgid ""
+"individuare, mappare, condividere, ogni oggetto, ogni edificio dall'interno"
+msgstr "identify, map, share, every object, in every building from the inside"
+
+#: load-post.php:97
+msgid "Maledetti Pinguini asdosi...!"
+msgstr "Damn asder Penguins...!"
+
+#: load-post.php:100
+msgid "Progetto Hackreativity Fabriano 2016"
+msgstr "Hackreativity Fabriano 2016 Project"
+
+#: load-post.php:142
+msgid "Indoormap platform"
+msgstr ""
+
+#: load-post.php:143
+msgid "Community login"
+msgstr ""
+
+#: load-post.php:144
+msgid "Verticalize now"
+msgstr ""
+
+#: load-post.php:145
+msgid "Logout"
+msgstr ""
+
+#: login.php:35
+msgid "Errore indirizzo e-mail/password"
+msgstr "Wrong e-amil address/password"
+
+#: login.php:38
+msgid "Utente disabilitato"
+msgstr "User disabled"
+
+#: login.php:46
+msgid "Sei loggato!"
+msgstr "You are logged in!"
+
+#: login.php:49
+msgid "Sloggati"
+msgstr "Log out"
+
+#: login.php:62 register.php:106
+msgid "E-mail"
+msgstr ""
+
+#: login.php:72
+msgid "Password"
+msgstr ""
+
+#: login.php:81
+msgid "Accedi"
+msgstr "Login"
+
+#: login.php:97
+msgid "Verticalize"
+msgstr ""
+
+#: login.php:100
+msgid ""
+"Pensando a cosa mancava, nella consapevolezza delle persone, abbiamo "
+"immaginato un nuovo approccio per comunicare vari rischi, per me, per te e "
+"per voi."
+msgstr ""
+
+#: register.php:31
+msgid "Indirizzo e-mail non valido!"
+msgstr "Not valid e-mail address!"
+
+#: register.php:50
+msgid "Conferma registrazione"
+msgstr "Confirm registration"
+
+#: register.php:51
+msgid "Per confermare la tua registrazione clicca sul seguente link:"
+msgstr "To confirm your registration click on the following link:"
+
+#: register.php:58
+msgid ""
+"Se NON sei stato tu a fare questa richiesta di registrazione, ignora questo "
+"messaggio."
+msgstr ""
+
+#: register.php:64
+msgid "Notifica registrazione utente"
+msgstr ""
+
+#: register.php:86
+msgid "Nome"
+msgstr "Name"
+
+#: register.php:96
+msgid "Cognome"
+msgstr "Surname"
+
+#: register.php:117
+msgid "Prosegui"
+msgstr "Next"
+
+#: verticalize-now.php:42
+msgid "Elevazione"
+msgstr "Elevation"
+
+#: verticalize-now.php:55
+msgid "Delevazione"
+msgstr "De-elevation"
+
+#: verticalize-now.php:72
+msgid "Estintore"
+msgstr "Extinguishers"
+
+#: verticalize-now.php:73
+msgid "Uscita"
+msgstr "Exit"
+
+#: verticalize-now.php:74
+msgid "Idrante"
+msgstr "Hydrant"
+
+#: verticalize-now.php:75
+msgid "Alta tensione"
+msgstr "High-tension"
+
+#: verticalize-now.php:76
+msgid "Allarme"
+msgstr "Alarm"
+
+#: verticalize-now.php:86
+msgid "Salva"
+msgstr "Save"
+
+#: includes/Footer.php:28
+msgid "Licenza"
+msgstr "License"
+
+#: includes/Footer.php:30
+#, php-format
+msgid "Software libero pubblicato sotto licenza %s."
+msgstr "Free as Freedom software shared under the %s license."
+
+#: includes/Footer.php:32
+msgid "https://www.gnu.org/licenses/agpl-3.0.html"
+msgstr ""
+
+#: includes/Footer.php:40
+#, php-format
+msgid ""
+"Contenuti del sito rilasciati come opera culturale libera sotto licenza %s."
+msgstr ""
+"Contents shared using an intellectual Free cultural work under %s license."
+
+#: includes/Footer.php:42
+msgid "https://creativecommons.org/licenses/by-sa/4.0/deed.it"
+msgstr "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+
+#: includes/Footer.php:44
+msgid "Creative Commons Attribuzione - Condividi allo stesso modo 4.0"
+msgstr "Creative Commons Attribution - Share alike 4.0"
+
+#: includes/functions.php:87
+msgid "È un 404! Pagina non trovata :("
+msgstr "Holy crap it's a 404! Page not found :("
+
+#: includes/functions.php:90
+msgid ""
+"Nott foond! A.k.a. erroro quattrociantoquatto (N.B. eseguire coi permessi di "
+"root <b>non</b> risolve la situazione!)"
+msgstr ""
+"Nott foond! A.k.a. erroro onehundredanadfourhththhh (N.B. do not try to re-"
+"exec with a root account because of it's completly <b>unuseful</b>!)"
+
+#: includes/Header.php:82
+#, php-format
+msgid "%s - %s"
+msgstr ""
+
+#: includes/User.php:23
+#, php-format
+msgid "%1$s %2$s"
+msgstr ""
+
+#: includes/Verticalize.php:32
+msgid "Errore di rete"
+msgstr "Network error"
+
+#: includes/Verticalize.php:33
+msgid "{level}°"
+msgstr ""
+
+#: includes/Verticalize.php:34
+msgid "Piano {level}."
+msgstr "{level} floor."
+
+#: includes/Verticalize.php:35
+msgid "terra"
+msgstr "ground"
+
+#: includes/Verticalize.php:36
+msgid "Piano corrente: {level}."
+msgstr "Actual floor: {level}."
+
+#: includes/Verticalize.php:37
+msgid "Salvato"
+msgstr "Saved"
