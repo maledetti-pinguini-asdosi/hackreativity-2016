@@ -20,7 +20,7 @@ And:
 - [X] Knowing if `$awesome_project` leave us the time to have lunch
 - [X] Knowing if `$awesome_project` leave us the time to have dinner
 - [ ] Knowing if `$awesome_project` leave us the time to sleep
-- [ ] Knowing if `$awesome_project` leave us the time to have breakfast
+- [X] Knowing if `$awesome_project` leave us the time to have breakfast
 - [ ] Knowing if `$awesome_project` leave us the time to show it
 
 ## Pratically
@@ -41,7 +41,7 @@ Import the `database/database-schema.sql` in your database
 
 Fill `load-example.php` and save-as `load.php`.
 
-Add this in your Apache virtualhost:
+Add see the `htaccess.txt` for your Apache2 virtualhost.
 
 ## License
 Copyright (C) 2016 MPA: Maledetti pinguini asdosi: Alessio Beccati, Valerio Bozzolan and contributors.
