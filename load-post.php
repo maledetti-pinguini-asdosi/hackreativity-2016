@@ -40,6 +40,7 @@ defined('STITIC')
 	|| define('STITIC',   ROOT . _ . DIR_STATIC);
 
 define('IMAGES', STITIC . '/images');
+define('TAG',    IMAGES . '/tags');
 
 ########################################################
 # PROBABLY PROVIDED BY 'libjs-jquery', 'libjs-leaflet' #
@@ -141,5 +142,5 @@ add_menu_entries( [
 	new MenuEntry('home',     URL,                          _("Indoormap platform")                    ),
 	new MenuEntry('login',    URL . '/login.php',           _("Community login"),           $not_logged),
 	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now"),           'root'     ),
-	new MenuEntry('login',    URL . '/login.php?logout',    _("Logout"),                    $logged)
+	new MenuEntry('logout',   URL . '/login.php?logout',    _("Logout"),                    $logged)
 ] );

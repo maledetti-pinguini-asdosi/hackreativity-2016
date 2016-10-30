@@ -17,33 +17,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 ###############################################################################
 
-class Verticalize {
-	function __construct($nominatim = null, $bigdata = null) {
-		if($nominatim === null) {
-			$nominatim = get_user()->getUserNominatim();
-		}
+require '../load.php';
 
-		if($bigdata === null) {
-			$bigdata = get_user()->getUserBigdata();
-		}
-	?>
+echo http_json_header();
 
-	Verticalize.l10n = {
-		connectionError: "<?php _esc_attr( _("Errore di rete") ) ?>",
-		level:           "<?php _esc_attr( _("{level}°") ) ?>",
-		levelPopup:      "<?php _esc_attr( _("Piano {level}.") ) ?>",
-		ground:          "<?php _esc_attr( _("terra") ) ?>",
-		currentLevel:    "<?php _esc_attr( _("Piano corrente: {level}.") ) ?>",
-		saved:           "<?php _esc_attr( _("Salvato") ) ?>"
-	};
-	Verticalize.bigdata         =  JSON.parse('<?php echo $bigdata ?>');
-	for(var i in Verticalize.bigdata) {
-		var tag = Verticalize.bigdata[i];
-		Verticalize.bigdata[i] = new Verticalize.Tag(tag.uid, tag.latLng, tag.level);
-	}
-
-	Verticalize.config.tagImage =  "<?php echo TAG ?>";
-	Verticalize.init("<?php _esc_attr( $nominatim ) ?>");
-
-	<?php }
+if( ! is_logged() ) {
+	echo json_encode(['please-login-in' => true]);
+	exit;
 }
+
+if( ! isset( $_POST['bigdata'] ) ) {
+	echo json_encode(['missing-bigdata' => true]);
+	exit;
+}
+
+query_update('user',
+	new DBCol('user_bigdata', $_POST['bigdata'], 's'),
+	sprintf(
+		'user_ID = %d',
+		get_user()->getUserID()
+	)
+);
+
+echo json_encode(['ok' => true]);
+

@@ -32,23 +32,6 @@ new Header('app', [
 ] );
 ?>
 
-<script>
-$(document).ready(function () {
-	$("#map").height(
-		$(document).height() - $("nav").height()
-	);
-
-	<?php new VerticalizeL10n() ?>
-
-	Verticalize.init("<?php _esc_attr( get_user()->getUserNominatim() ) ?>");
-
-	$(".level-selector .up")     .click(Verticalize.addLevel);
-	$(".level-selector .down")   .click(Verticalize.removeLevel);
-	$(".minlevel-selector .up")  .click(Verticalize.addMinusLevel);
-	$(".minlevel-selector .down").click(Verticalize.removeMinusLevel);
-});
-</script>
-
 <div class="row">
 	<div class="col s12 m8 no-padding-left">
 		<div id="map"></div>
@@ -58,11 +41,11 @@ $(document).ready(function () {
 			<div class="col s6">
 				<h5 class="center"><?php _e("Elevazione") ?></h5>
 				<div class="level-selector">
-					<div class="row">
-						<div class="col s5 offset-s1">
+					<div class="row center">
+						<div class="col s6">
 							<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
 						</div>
-						<div class="col s5 offset-s1">
+						<div class="col s6">
 							<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
 						</div>
 					</div>
@@ -71,19 +54,57 @@ $(document).ready(function () {
 			<div class="col s6">
 				<h5 class="center"><?php _e("Delevazione") ?></h5>
 				<div class="minlevel-selector">
-					<div class="row">
-						<div class="col s5 offset-s1">
+					<div class="row center">
+						<div class="col s6">
 							<a class="up btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('add') ?></a>
 						</div>
-						<div class="col s5 offset">
+						<div class="col s6">
 							<a class="down btn-floating waves-effect waves-light <?php echo GROUND ?>"><?php echo icon('remove') ?></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row tag-picker">
+			<div class="col s12">
+				<?php
+				$tags = [
+					new Tag('extinguisher', _("Estintore") ),
+					new Tag('exit',         _("Uscita") ),
+					new Tag('hydrant',      _("Idrante") ),
+					new Tag('voltage',      _("Alta tensione") ),
+					new Tag('fire_alarm',   _("Allarme") )
+				];
+				foreach($tags as $tag) {
+					$tag->printTagChip();
+				}
+				?>
+			</div>
+			<div class="col s12">
+				<p class="current-level"></p>
+			</div>
+			<p><button class="<?php echo BTN ?> bigdata-save"><?php _e("Salva"); echo icon('save', 'right') ?></button></p>
+		</div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function () {
+	$("#map").height( $(document).height() - $("nav").height() );
+
+	<?php new Verticalize() ?>
+
+	$('.level-selector .up')        .click(Verticalize.addLevel);
+	$('.level-selector .down')      .click(Verticalize.removeLevel);
+	$('.minlevel-selector .up')     .click(Verticalize.addMinusLevel);
+	$('.minlevel-selector .down')   .click(Verticalize.removeMinusLevel);
+	$('.tag-picker a .tag-selector').click( function (e) {
+		Verticalize.pickTag( $(this) );
+		e.preventDefault();
+	} );
+	$('.bigdata-save').click(Verticalize.save);
+});
+</script>
 
 <?php
 new Footer();

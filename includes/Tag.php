@@ -17,33 +17,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 ###############################################################################
 
-class Verticalize {
-	function __construct($nominatim = null, $bigdata = null) {
-		if($nominatim === null) {
-			$nominatim = get_user()->getUserNominatim();
-		}
-
-		if($bigdata === null) {
-			$bigdata = get_user()->getUserBigdata();
-		}
-	?>
-
-	Verticalize.l10n = {
-		connectionError: "<?php _esc_attr( _("Errore di rete") ) ?>",
-		level:           "<?php _esc_attr( _("{level}°") ) ?>",
-		levelPopup:      "<?php _esc_attr( _("Piano {level}.") ) ?>",
-		ground:          "<?php _esc_attr( _("terra") ) ?>",
-		currentLevel:    "<?php _esc_attr( _("Piano corrente: {level}.") ) ?>",
-		saved:           "<?php _esc_attr( _("Salvato") ) ?>"
-	};
-	Verticalize.bigdata         =  JSON.parse('<?php echo $bigdata ?>');
-	for(var i in Verticalize.bigdata) {
-		var tag = Verticalize.bigdata[i];
-		Verticalize.bigdata[i] = new Verticalize.Tag(tag.uid, tag.latLng, tag.level);
+class Tag {
+	function __construct($uid, $name) {
+		$this->uid = $uid;
+		$this->name = $name;
 	}
 
-	Verticalize.config.tagImage =  "<?php echo TAG ?>";
-	Verticalize.init("<?php _esc_attr( $nominatim ) ?>");
+	function getImage() {
+		return TAG . "/{$this->uid}.png";
+	}
 
+	function printTagChip() { ?>
+		<a href="#">
+			<div class="chip tag-selector hoverable" data-uid="<?php echo $this->uid ?>">
+				<img src="<?php echo $this->getImage() ?>" alt="<?php echo $this->name ?>" />
+				<?php echo $this->name ?>
+			</div>
+		</a>
 	<?php }
 }

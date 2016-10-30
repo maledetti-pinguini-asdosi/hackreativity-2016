@@ -25,11 +25,81 @@ var Verticalize = {
 		overpass: '/overpass',
 		view: [45.07050, 7.68254],
 		zoom: 19,
-		focusGap: 0.0001
+		focusGap: 0.00018,
+		$currentLevel: '.current-level',
+		tagImage: null,
+		saveAPI: '/api/save-bigdata.php'
+	},
+	l10n: {},
+
+	bigdata: [],
+
+	latestTagUid: null,
+
+	Tag: function (uid, latLng, level) {
+		this.uid = uid;
+		this.latLng = latLng;
+
+		if (typeof level === 'undefined') {
+			level = Verticalize.getFocusedLevel();
+		}
+		this.level = level;
+
+		Verticalize.Tag.prototype.getImage = function () {
+			return Verticalize.config.tagImage + '/' + this.uid + '.png';
+		};
+
+		Verticalize.Tag.prototype.plot = function() {
+			var i = L.icon( {
+				iconUrl: this.getImage(),
+				iconSize:    [32, 32], // size of the icon
+				iconAnchor:  [16, 32], // point of the icon which will correspond to marker's location
+				popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+			} );
+
+			var m = L.marker(this.latLng, {icon: i, draggable: true});
+			m.tag = this;
+			m.on('drag', function(e) {
+				var marker = e.target;
+				var position = marker.getLatLng();
+				marker.tag.latLng = position;
+			});
+			Verticalize.addLayer( m );
+
+			return this;
+		};
 	},
 
-	l10n: {
-		connectionError: null
+	pickTag: function(el) {
+		$el = $(el);
+		var tag_uid = $(el).data('uid');
+		var geojson = Verticalize.findGeojsonLevel( Verticalize.getFocusedLevel() );
+		var bounds = geojson.getBounds();
+		var latLng = bounds.getCenter();
+		var tag = new Verticalize.Tag(tag_uid, latLng);
+		Verticalize.appendTag( tag.plot() );
+	},
+
+	appendTag: function(tag) {
+		return Verticalize.bigdata.push(tag);
+	},
+
+	findGeojsonLevel: function(level) {
+		if (typeof level === 'undefined') {
+			level = Verticalize.getFocusedLevel();
+		}
+
+		var found = false;
+		for (var i in Verticalize.layers._layers) {
+			var layer = Verticalize.layers._layers[i];
+			for (var j in layer._layers) {
+				var geojson = layer._layers[j];
+				if( geojson.options.level === level ) {
+					return geojson;
+				}
+			}
+		}
+		return false;
 	},
 
 	map: null,
@@ -41,14 +111,16 @@ var Verticalize = {
 
 	layers: false,
 
-	focusedFloor: false,
-
-	focusFloor: function(floor) {
-		Verticalize.focusedFloor = floor;
+	focusedLevel: false,
+	focusLevel: function (level) {
+		Verticalize.focusedLevel = level;
 		Verticalize.plot();
+		Verticalize.$currentLevel.text( Verticalize.l10n.currentLevel.formatUnicorn({
+			level: Verticalize.humanLevel(level)
+		}) );
 	},
 
-	addLevel: function() {
+	addLevel: function () {
 		Verticalize.levels++;
 		Verticalize.plot();
 	},
@@ -72,13 +144,13 @@ var Verticalize = {
 		}
 	},
 
-	clearGeojsonLayers: function () {
+	clearLayers: function () {
 		if( Verticalize.layers !== false ) {
 			Verticalize.layers.clearLayers();
 		}
 	},
 
-	addGeojsonLayer: function (layer) {
+	addLayer: function (layer) {
 		if( Verticalize.layers === false ) {
 			Verticalize.layers = new L.LayerGroup();
 			Verticalize.layers.addLayer( layer );
@@ -88,8 +160,14 @@ var Verticalize = {
 		}
 	},
 
-	init: function(nominatim) {
+	init: function (nominatim) {
 		Verticalize.map = L.map(Verticalize.config.id);
+
+		if(Verticalize.bigdata) {
+			console.log(Verticalize.bigdata);
+		}
+
+		Verticalize.$currentLevel = $(Verticalize.config.$currentLevel);
 
 		var osm = new L.TileLayer( Verticalize.config.tiles, {
 			maxZoom:     Verticalize.config.maxZoom,
@@ -102,20 +180,26 @@ var Verticalize = {
 		Verticalize.plotNominatim( nominatim );
 	},
 
-	plotGeoJson: function(geojson) {
-		Verticalize.addGeojsonLayer(
+	humanLevel: function(level) {
+		if(level === 0) {
+			level = Verticalize.l10n.ground;
+		} else if(level > 0) {
+			level = Verticalize.l10n.level.formatUnicorn({level: level});
+		}
+		return level;
+	},
+
+	plotGeoJson: function (geojson) {
+		Verticalize.addLayer(
 			L.geoJson(geojson, {
 				style: function (feature) {
 					return feature.geometry.properties;
 				},
 				onEachFeature: function (feature, layer) {
-					var floor = feature.properties.floor;
-					if(floor === 0) {
-						floor = Verticalize.l10n.ground;
-					}
-					layer.bindPopup( Verticalize.l10n.floorPopup.formatUnicorn( { floor: floor } ) )
+					var level = Verticalize.humanLevel(feature.properties.level);
+					layer.bindPopup( Verticalize.l10n.levelPopup.formatUnicorn( { level: level } ) )
 					     .on('click', function (e) {
-						Verticalize.focusFloor( e.target.options.floor );
+						Verticalize.focusLevel( e.target.options.level );
 					     } );
 				}
 			} )
@@ -139,30 +223,41 @@ var Verticalize = {
 	},
 
 	plot: function() {
-		Verticalize.clearGeojsonLayers();
+		Verticalize.clearLayers();
 		Verticalize.geoJson3D();
+		Verticalize.plotLevelTags();
 	},
 
-	gap: function(floor) {
-		if(Verticalize.focusedFloor === false || floor <= Verticalize.focusedFloor) {
+	gap: function (level) {
+		if(Verticalize.focusedLevel === false || level <= Verticalize.focusedLevel) {
 			return 0;
 		}
 		return Verticalize.config.focusGap;
 	},
 
-	cloneGeojsonSpased: function(level, properties) {
+	getFocusedLevel: function() {
+		if( Verticalize.focusedLevel === false ) {
+			Verticalize.focusLevel(Verticalize.levels - 1);
+		}
+		return Verticalize.focusedLevel;		
+	},
+
+	cloneGeojsonSpased: function (level, properties) {
 		// JavaScript #merda
 		geojson = JSON.parse(JSON.stringify(Verticalize.geojson));
 
 		var coordinates = [];
 
-		var gap = Verticalize.gap(level);
+		if( ! geojson.coordinates ) {
+			return;
+		}
+
 		for(var i=0; i<geojson.coordinates.length; i++) {
 			coordinates[i] = [];
 			for(var j=0; j<geojson.coordinates[i].length; j++) {
 				coordinates[i][j] = [];
-				coordinates[i][j][0] = geojson.coordinates[i][j][0] += - level * 0.0000005 - gap;
-				coordinates[i][j][1] = geojson.coordinates[i][j][1] +=   level * 0.00004   + gap;
+				coordinates[i][j][0] = Verticalize.planLat(geojson.coordinates[i][j][0], level);
+				coordinates[i][j][1] = Verticalize.planLng(geojson.coordinates[i][j][1], level);
 			}
 		}
 
@@ -173,10 +268,32 @@ var Verticalize = {
 		};
 	},
 
-	geoJson3D: function() {
+	plotLevelTags: function(level) {
+		if(typeof level === 'undefined') {
+			level = Verticalize.getFocusedLevel();
+		}
+
+		for(var i in Verticalize.bigdata) {
+			var tag = Verticalize.bigdata[i];
+
+			if(tag.level === level) {
+				tag.plot();
+			}
+		}
+	},
+
+	planLat: function(lat, level) {
+		return lat - ( level * 0.00000002 + Verticalize.gap(level) );
+	},
+
+	planLng: function(lng, level) {
+		return lng + ( level * 0.00004    + Verticalize.gap(level) );
+	},
+
+	geoJson3D: function () {
 		for(var i=Verticalize.minusLevels; i>0; i--) {
 			var cloned = Verticalize.cloneGeojsonSpased(-i, {
-				floor: -i,
+				level: -i,
 				fillColor: 'white',
 				fillOpacity: 0.2,
 				weight: 3
@@ -185,12 +302,18 @@ var Verticalize = {
 		}
 		for(var i=0; i<Verticalize.levels; i++) {
 			var cloned = Verticalize.cloneGeojsonSpased(i, {
-				floor: i,
+				level: i,
 				fillColor: '#009688',
 				fillOpacity: 1
 			});
 			Verticalize.plotGeoJson( cloned );
 		}
+	},
+	save: function() {
+		$.post(Verticalize.config.saveAPI, {
+			bigdata: JSON.stringify( Verticalize.bigdata )
+		} );
+		Materialize.toast(Verticalize.l10n.saved);
 	}
 };
 

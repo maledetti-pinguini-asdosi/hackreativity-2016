@@ -29,9 +29,9 @@ new Header('home', [
 		<div class="col s12 m6">
 			<div class="card">
 				<div class="card-content">
-					<h4><?php _e("Platform per?") ?></h4>
+					<h4><?php _e("Awareness") ?></h4>
 					<p>
-						<span class="card-title"><?php _e("Indoormap è usato per identificare, mappare e condividere oggetti rilevanti dentro un edificio.") ?></span>
+						<span class="card-title"><?php _e("La consapevolezza fa la differenza in una situazione di emergenza.") ?></span>
 					</p>
 				</div>
 			</div>
@@ -39,16 +39,46 @@ new Header('home', [
 		<div class="col s12 m6">
 			<div class="card">
 				<div class="card-content">
-					<h4>Sicurezza?</h4>
+					<h4><?php _e("Incognizance") ?></h4>
 					<p>
-						<span class="card-title"><?php _e("Indoormap ti fornisce sicurezza. Se sei un utente registrato puoi segnalare edifici daneggiati da eventi sismici, pericolanti. ") ?></span>
+						<span class="card-title"><?php _e("Ogni giorno, affrontiamo diversi pericoli, consapevoli dei rischi.") ?></span>
 					</p>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="parallax-container">
+		<div class="parallax"><img src="<?php echo IMAGES ?>/center_italy.png" ></div>
+	</div>
+	<div class="row">
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content">
+					<h4><?php _e("Contribute") ?></h4>
+					<p>
+						<span class="card-title"><?php _e("Avevamo immaginato possibili soluzioni per contribuire a diffondere la consapevolezza dei rischi.") ?></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content">
+					<h4><?php _e("Another type of map") ?></h4>
+					<p>
+						<span class="card-title"><?php _e("individuare, mappare, condividere, ogni oggetto, ogni edificio dall'interno") ?></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="parallax-container">
+		<div class="parallax"><img src="<?php echo IMAGES ?>/sud_italy.png" ></div>
+	</div>
 
-	<p><?php echo menu_link('app') ?></p>
+	<div class="row center">
+		<p><?php echo menu_link('app') ?></p>
+	</div>
 <?php
 
 new Footer();

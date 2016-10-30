@@ -94,7 +94,7 @@ if( is_logged() ):
 					<div class="row">
 						<div class="col s12">
 							<h4>
-								<?php _e("Indoor Mapping"); ?>
+								<?php _e("Verticalize"); ?>
 							</h4>
 							<p class="flow-text">
 								<?php _e("Pensando a cosa mancava, nella consapevolezza delle persone, abbiamo immaginato un nuovo approccio per comunicare vari rischi, per me, per te e per voi."); ?>
