@@ -75,7 +75,7 @@ if( is_logged() ):
 								</div>
 							</div>
 							<div class="row">
-								<div class="col s12 center">
+								<div class="col s12 m12 center">
 									<p>
 									<button class="<?php echo BTN ?>" type="submit">
 										<?php _e("Accedi") ?>

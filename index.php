@@ -23,13 +23,13 @@ new Header('home', [
 	'landing' => IMAGES . '/north_italy.png'
 ] );
 
-	?>
+?>
 
 	<div class="row">
 		<div class="col s12 m6">
 			<div class="card">
 				<div class="card-content">
-					<h4><?php _e("Platform per?");  ?></h4>
+					<h4><?php _e("Platform per?") ?></h4>
 					<p>
 						<span class="card-title"><?php _e("Indoormap è usato per identificare, mappare e condividere oggetti rilevanti dentro un edificio.") ?></span>
 					</p>

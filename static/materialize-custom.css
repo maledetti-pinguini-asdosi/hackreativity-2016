@@ -23,3 +23,8 @@
 	padding-left: 0px !important;
 	padding-right: 1.5rem !important;
 }
+
+#slide-out {
+	/* Damn materialize css! */
+	z-index:1001 !important;
+}

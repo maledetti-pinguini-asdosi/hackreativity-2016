@@ -101,6 +101,9 @@ defined('SITE_DESCRIPTION')
 defined('FAVICON')
 	|| define('FAVICON', 'file:///asd');
 
+defined('GRAVATAR')
+	|| define('GRAVATAR', '/gravatar/%s');
+
 ############################
 # MATERIALIZE CSS DEFAULTS #
 ############################
@@ -132,11 +135,11 @@ register_css('material-icons',     STITIC . '/material-design-icons/material-ico
 #############
 
 $not_logged = is_logged() ? 'hidden' : 'root';
+$logged    = is_logged()  ? 'root'   : 'hidden';
 
 add_menu_entries( [
 	new MenuEntry('home',     URL,                          _("Indoormap platform")                    ),
 	new MenuEntry('login',    URL . '/login.php',           _("Community login"),           $not_logged),
-	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now"),           'root',  [
-		'icon' => 'send'
-	] )
+	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now"),           'root'     ),
+	new MenuEntry('login',    URL . '/login.php?logout',    _("Logout"),                    $logged)
 ] );

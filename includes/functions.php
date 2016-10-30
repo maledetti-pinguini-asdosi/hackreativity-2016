@@ -27,8 +27,9 @@
 function print_menu($uid = null, $level = 0, $args = [] ) {
 
 	$args = merge_args_defaults( $args, [
-		'max-level' => 99,
-		'main-ul-intag' => 'class="collection"'
+		'max-level'     => 99,
+		'main-ul-intag' => 'class="collection"',
+		'pre'           => function() {}
 	] );
 
 	if( $level > $args['max-level'] ) {
@@ -43,8 +44,9 @@ function print_menu($uid = null, $level = 0, $args = [] ) {
 	?>
 
 	<ul<?php if($level === 0): echo HTML::spaced( $args['main-ul-intag'] ); endif ?>>
-	<?php foreach($menuEntries as $menuEntry): ?>
+		<?php $args['pre']() ?>
 
+	<?php foreach($menuEntries as $menuEntry): ?>
 		<li>
 			<?php echo HTML::a($menuEntry->url, $menuEntry->name, $menuEntry->get('title')) ?>
 <?php print_menu( $menuEntry->uid, $level + 1, $args ) ?>
@@ -65,6 +67,8 @@ function menu_link($uid, $class = null) {
 	$icon = '';
 	if( $menu->get('icon') ) {
 		$icon = icon( $menu->get('icon'), 'right' );
+	} else {
+		$icon = icon('send', 'right');
 	}
 	return HTML::a($menu->url, $menu->name . $icon, $menu->get('title'), $class);
 }

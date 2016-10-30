@@ -39,7 +39,20 @@ class Nav {
 			'root',
 			0, [
 				'main-ul-intag' => 'id="slide-out" class="side-nav"',
-				'collapse' => true
+				'collapse' => true,
+				'pre' => function() { ?>
+			<?php if( is_logged() ): ?>
+			<li>
+				<div class="userView">
+					<img class="background" src="<?php echo IMAGES ?>/map_menu.jpg" />
+					<a href="#!user"><img class="circle" src="<?php echo get_user()->getUserImage() ?>" /></a>
+					<a href="#!name"><span class="white-text name"><?php echo get_user()->getUserFullName() ?></span></a>
+					<a href="#!email"><span class="white-text email"><?php echo get_user()->getUserEmail() ?></span></a>
+				</div>
+			</li>
+			<li><div class="divider"></div></li>
+			<?php endif ?>
+				<?php }
 			]
 		) ?>
 

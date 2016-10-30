@@ -43,6 +43,25 @@ trait UserTrait {
 	function getUserNominatim() {
 		return $this->user_nominatim;
 	}
+
+	function getUserBigdata() {
+		$bigdata = $this->user_bigdata;
+		if( ! isset( $bigdata ) ) {
+			$bigdata = json_encode( [] );
+		}
+		return $bigdata;
+	}
+
+	function getUserEmail() {
+		return $this->user_email;
+	}
+
+	function getUserImage($s = 256) {
+		return sprintf(
+			GRAVATAR,
+			md5($this->user_email) . '?' . http_build_query(['s' => $s])
+		);
+	}
 }
 
 class User extends Sessionuser {
