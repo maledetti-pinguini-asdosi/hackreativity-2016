@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_uid` varchar(32) NOT NULL,
+  `user_email` varchar(32) NOT NULL,
   `user_active` int(11) NOT NULL DEFAULT '1',
   `user_role` enum('administrator','user') NOT NULL,
   `user_name` varchar(32) NOT NULL,
@@ -33,8 +34,12 @@ CREATE TABLE `user` (
   `user_registration_date` datetime NOT NULL,
   `user_token` varchar(20) NOT NULL,
   `user_nominatim` varchar(64) NOT NULL,
+  `user_bigdata` text,
+  `user_levels` int(11) NOT NULL,
+  `user_minuslevels` int(11) NOT NULL,
   PRIMARY KEY (`user_ID`),
-  UNIQUE KEY `user_uid` (`user_uid`)
+  UNIQUE KEY `user_uid` (`user_uid`),
+  UNIQUE KEY `user_email` (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +52,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-30  0:10:12
+-- Dump completed on 2016-10-30  9:20:46
