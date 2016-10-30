@@ -64,10 +64,24 @@ var Verticalize = {
 				var position = marker.getLatLng();
 				marker.tag.latLng = position;
 			});
+			m.on('click', function(e) {
+				var m = e.target;
+				Verticalize.removeTag(m.tag);
+				Verticalize.plot();
+			});
 			Verticalize.addLayer( m );
 
 			return this;
 		};
+	},
+
+	removeLevelTags: function (level) {
+		for(var i in Verticalize.bigdata) {
+			var tag = Verticalize.bigdata[i];
+			if( tag.level === level ) {
+				Verticalize.removeTag(tag);
+			}
+		}
 	},
 
 	pickTag: function(el) {
@@ -82,6 +96,13 @@ var Verticalize = {
 
 	appendTag: function(tag) {
 		return Verticalize.bigdata.push(tag);
+	},
+
+	removeTag: function(tag) {
+		var index = Verticalize.bigdata.indexOf(tag);
+		if(index !== -1) {
+			Verticalize.bigdata.splice(index, 1);
+		}
 	},
 
 	findGeojsonLevel: function(level) {
@@ -131,6 +152,7 @@ var Verticalize = {
 	},
 
 	removeLevel: function () {
+		Verticalize.removeLevelTags( Verticalize.levels - 1 );
 		if( Verticalize.levels > 1 ) {
 			Verticalize.levels--;
 			Verticalize.plot();
@@ -138,6 +160,7 @@ var Verticalize = {
 	},
 
 	removeMinusLevel: function () {
+		Verticalize.removeLevelTags( - Verticalize.minusLevels );
 		if( Verticalize.minusLevels > 0 ) {
 			Verticalize.minusLevels--;
 			Verticalize.plot();
@@ -163,10 +186,6 @@ var Verticalize = {
 	init: function (nominatim) {
 		Verticalize.map = L.map(Verticalize.config.id);
 
-		if(Verticalize.bigdata) {
-			console.log(Verticalize.bigdata);
-		}
-
 		Verticalize.$currentLevel = $(Verticalize.config.$currentLevel);
 
 		var osm = new L.TileLayer( Verticalize.config.tiles, {
@@ -178,6 +197,8 @@ var Verticalize = {
 		Verticalize.map.setView(Verticalize.config.view, Verticalize.config.zoom).addLayer(osm);
 
 		Verticalize.plotNominatim( nominatim );
+
+		Verticalize.plot();
 	},
 
 	humanLevel: function(level) {
@@ -311,7 +332,9 @@ var Verticalize = {
 	},
 	save: function() {
 		$.post(Verticalize.config.saveAPI, {
-			bigdata: JSON.stringify( Verticalize.bigdata )
+			bigdata:   JSON.stringify( Verticalize.bigdata ),
+			minuslevels: Verticalize.minusLevels,
+			levels: Verticalize.levels
 		} );
 		Materialize.toast(Verticalize.l10n.saved);
 	}

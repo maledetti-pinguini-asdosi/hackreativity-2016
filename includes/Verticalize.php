@@ -43,6 +43,8 @@ class Verticalize {
 	}
 
 	Verticalize.config.tagImage =  "<?php echo TAG ?>";
+	Verticalize.levels =    <?php echo get_user()->getUserLevels() ?>;
+	Verticalize.minusLevels = <?php echo get_user()->getUserMinusLevels() ?>;
 	Verticalize.init("<?php _esc_attr( $nominatim ) ?>");
 
 	<?php }

@@ -62,6 +62,20 @@ trait UserTrait {
 			md5($this->user_email) . '?' . http_build_query(['s' => $s])
 		);
 	}
+
+	function getUserLevels() {
+		if( ! isset($this->user_levels) ) {
+			return 1;
+		}
+		return $this->user_levels;
+	}
+
+	function getUserMinusLevels() {
+		if( ! isset($this->user_minuslevels) ) {
+			return 0;
+		}
+		return $this->user_minuslevels;
+	}
 }
 
 class User extends Sessionuser {

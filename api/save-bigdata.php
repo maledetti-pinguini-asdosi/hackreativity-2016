@@ -32,7 +32,11 @@ if( ! isset( $_POST['bigdata'] ) ) {
 }
 
 query_update('user',
-	new DBCol('user_bigdata', $_POST['bigdata'], 's'),
+	[
+		new DBCol('user_bigdata',     $_POST['bigdata'],     's'),
+		new DBCol('user_minuslevels', $_POST['minuslevels'], 'd'),
+		new DBCol('user_levels',      $_POST['levels'],      'd')
+	],
 	sprintf(
 		'user_ID = %d',
 		get_user()->getUserID()
