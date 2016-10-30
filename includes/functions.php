@@ -56,6 +56,19 @@ function print_menu($uid = null, $level = 0, $args = [] ) {
 	<?php
 }
 
+function menu_link($uid, $class = null) {
+	if($class === null) {
+		$class = BTN;
+	}
+
+	$menu = get_menu_entry($uid);
+	$icon = '';
+	if( $menu->get('icon') ) {
+		$icon = icon( $menu->get('icon'), 'right' );
+	}
+	return HTML::a($menu->url, $menu->name . $icon, $menu->get('title'), $class);
+}
+
 function icon($icon = 'send', $c = null) {
 	if( $c !== null ) {
 		$c = " $c";

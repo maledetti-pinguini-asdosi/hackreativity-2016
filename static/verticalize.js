@@ -24,7 +24,8 @@ var Verticalize = {
 		nominatim: '/nominatim/search',
 		overpass: '/overpass',
 		view: [45.07050, 7.68254],
-		zoom: 19
+		zoom: 19,
+		focusGap: 0.0001
 	},
 
 	l10n: {
@@ -40,6 +41,13 @@ var Verticalize = {
 
 	layers: false,
 
+	focusedFloor: false,
+
+	focusFloor: function(floor) {
+		Verticalize.focusedFloor = floor;
+		Verticalize.plot();
+	},
+
 	addLevel: function() {
 		Verticalize.levels++;
 		Verticalize.plot();
@@ -51,7 +59,7 @@ var Verticalize = {
 	},
 
 	removeLevel: function () {
-		if( Verticalize.levels > 0 ) {
+		if( Verticalize.levels > 1 ) {
 			Verticalize.levels--;
 			Verticalize.plot();
 		}
@@ -105,7 +113,10 @@ var Verticalize = {
 					if(floor === 0) {
 						floor = Verticalize.l10n.ground;
 					}
-					layer.bindPopup( Verticalize.l10n.floorPopup.formatUnicorn( { floor: floor } ) );
+					layer.bindPopup( Verticalize.l10n.floorPopup.formatUnicorn( { floor: floor } ) )
+					     .on('click', function (e) {
+						Verticalize.focusFloor( e.target.options.floor );
+					     } );
 				}
 			} )
 		);
@@ -132,18 +143,26 @@ var Verticalize = {
 		Verticalize.geoJson3D();
 	},
 
+	gap: function(floor) {
+		if(Verticalize.focusedFloor === false || floor <= Verticalize.focusedFloor) {
+			return 0;
+		}
+		return Verticalize.config.focusGap;
+	},
+
 	cloneGeojsonSpased: function(level, properties) {
 		// JavaScript #merda
 		geojson = JSON.parse(JSON.stringify(Verticalize.geojson));
 
 		var coordinates = [];
 
+		var gap = Verticalize.gap(level);
 		for(var i=0; i<geojson.coordinates.length; i++) {
 			coordinates[i] = [];
 			for(var j=0; j<geojson.coordinates[i].length; j++) {
 				coordinates[i][j] = [];
-				coordinates[i][j][0] = geojson.coordinates[i][j][0] += - level * 0.0000005;
-				coordinates[i][j][1] = geojson.coordinates[i][j][1] +=   level * 0.00004;
+				coordinates[i][j][0] = geojson.coordinates[i][j][0] += - level * 0.0000005 - gap;
+				coordinates[i][j][1] = geojson.coordinates[i][j][1] +=   level * 0.00004   + gap;
 			}
 		}
 

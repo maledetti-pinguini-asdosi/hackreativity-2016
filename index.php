@@ -48,6 +48,7 @@ new Header('home', [
 		</div>
 	</div>
 
+	<p><?php echo menu_link('app') ?></p>
 <?php
 
 new Footer();

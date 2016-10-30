@@ -136,5 +136,7 @@ $not_logged = is_logged() ? 'hidden' : 'root';
 add_menu_entries( [
 	new MenuEntry('home',     URL,                          _("Indoormap platform")                    ),
 	new MenuEntry('login',    URL . '/login.php',           _("Community login"),           $not_logged),
-	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now")                       )
+	new MenuEntry('app',      URL . '/verticalize-now.php', _("Verticalize now"),           'root',  [
+		'icon' => 'send'
+	] )
 ] );
