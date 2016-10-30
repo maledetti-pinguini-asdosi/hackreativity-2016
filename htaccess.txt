@@ -1,0 +1,11 @@
+# This is in order to respect the same origin policy and user privacy
+
+ProxyPass /tiles/a http://a.tile.osm.org
+ProxyPass /tiles/b http://b.tile.osm.org
+ProxyPass /tiles/c http://c.tile.osm.org
+
+ProxyPass /nominatim/search http://nominatim.openstreetmap.org/search
+
+ProxyPass /overpass http://overpass-api.de/api/interpreter
+
+ProxyPass /gravatar http://www.gravatar.com/avatar
