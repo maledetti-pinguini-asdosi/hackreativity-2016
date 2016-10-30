@@ -114,7 +114,7 @@ class User extends Sessionuser {
 	function getByID($id) {
 		return query_row(
 			sprintf(
-				"SELECT * FROM user WHERE user_ID = %d",
+				"SELECT * FROM {$GLOBALS[T]('user')} WHERE user_ID = %d",
 				$id
 			),
 			'User'
