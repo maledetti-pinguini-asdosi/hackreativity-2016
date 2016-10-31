@@ -19,15 +19,17 @@ And:
 - [X] Knowing if `$awesome_project` leave us the time to have the first breakfast
 - [X] Knowing if `$awesome_project` leave us the time to have lunch
 - [X] Knowing if `$awesome_project` leave us the time to have dinner
+- [X] Knowing if `$awesome_project` lives also under an heartquake
 - [ ] Knowing if `$awesome_project` leave us the time to sleep
 - [X] Knowing if `$awesome_project` leave us the time to have breakfast
-- [ ] Knowing if `$awesome_project` leave us the time to show it
+- [X] Knowing if `$awesome_project` leave us the time to show it
 
 ## Pratically
 - [X] Login working
 
 ## TODO
 - [ ] Optimize 3D palace draw
+- [ ] Knowing why `$awesome_project` wasn't so awesome D:
 
 ## Website installation
     # apt-get install bzr
